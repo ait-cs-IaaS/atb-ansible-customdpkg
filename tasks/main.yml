@@ -1,0 +1,17 @@
+---
+# tasks file for atb-ansible-customdpkg
+
+- name: Install custom repository
+  ansible.builtin.template:
+    src: "{{ customdpkg_repotpl }}"
+    dest: "/etc/apt/sources.list.d/{{ customdpkg_sourceslist }}"
+    owner: root
+    group: root
+  tags:
+    - repo
+
+- name: Install Packages
+  ansible.builtin.apt:
+    pkg: "{{ customdpkg_packages }}"
+    update_cache: true
+    install_recommends: true
