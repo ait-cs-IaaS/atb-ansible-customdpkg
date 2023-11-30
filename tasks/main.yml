@@ -10,8 +10,25 @@
   tags:
     - repo
 
+- name: Upload Packages
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ customdpkg_tmpdst }}"
+    owner: root
+    group: root
+  with_items: "{{ customdpkg_dpkgpackages }}"
+
+
 - name: Install Packages
   ansible.builtin.apt:
-    pkg: "{{ customdpkg_packages }}"
+    deb: "{{ customdpkg_tmpdst }}/{{ item }}"     
     update_cache: true
     install_recommends: true
+  with_items: "{{ customdpkg_dpkgpackages }}"
+
+- name: Remove DPKG-files
+  ansible.builtin.file:
+    path: "{{ customdpkg_tmpdst }}/{{ item }}"
+    state: absent
+  with_items: "{{ customdpkg_dpkgpackages }}"
+
