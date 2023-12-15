@@ -6,5 +6,6 @@ customdpkg_reposrv: puppet.aecid-testbed.local
 customdpkg_dpkgpackages:
   - healthcheckd_1.0-1_amd64.deb
 customdpkg_tmpdst: /opt
+customdpkg_update: false
 customdpkg_packages:
   - healthcheckd
