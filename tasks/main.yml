@@ -22,7 +22,7 @@
 - name: Install Packages
   ansible.builtin.apt:
     deb: "{{ customdpkg_tmpdst }}/{{ item }}"     
-    update_cache: true
+    update_cache: "{{ customdpkg_update }}"
     install_recommends: true
   with_items: "{{ customdpkg_dpkgpackages }}"
 
